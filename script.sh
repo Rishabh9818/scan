@@ -14,7 +14,7 @@ logInfoMessage "Scanning the code available at ${WORKSPACE}/${CODEBASE_DIR} "
 sleep  "$SLEEP_DURATION"
 logInfoMessage "Executing command"
 logInfoMessage "scancode -cl --license --html reports/${OUTPUT_ARG} ${WORKSPACE}/${CODEBASE_DIR}"
-scancode -cl --license --html reports/"${OUTPUT_ARG}" "${WORKSPACE}"/"${CODEBASE_DIR}"
+scancode -cl -q --license --csv reports/"${OUTPUT_ARG}" "${WORKSPACE}"/"${CODEBASE_DIR}"
 STATUS=$(echo $?)
 if [ -s "reports/${OUTPUT_ARG}" ]; then
    cat reports/"${OUTPUT_ARG}"
