@@ -1,8 +1,9 @@
 #!/bin/bash
 source functions.sh
 source log-functions.sh
-cd  "${WORKSPACE}"/"${CODEBASE_DIR}"
-
+CODEBASE_LOCATION="${WORKSPACE}"/"${CODEBASE_DIR}"
+logInfoMessage "I'll do processing at [$CODEBASE_LOCATION]"
+cd "${CODEBASE_LOCATION}"
 if [ -d "reports" ]; then
     true
 else
@@ -13,8 +14,11 @@ STATUS=0
 logInfoMessage "Scanning the code available at ${WORKSPACE}/${CODEBASE_DIR} "
 sleep  "$SLEEP_DURATION"
 logInfoMessage "Executing command"
-logInfoMessage "scancode -cl --license --html reports/${OUTPUT_ARG} ${WORKSPACE}/${CODEBASE_DIR}"
-scancode -cl -q --license --csv reports/"${OUTPUT_ARG}" "${WORKSPACE}"/"${CODEBASE_DIR}"
+logInfoMessage "scancode -q --yaml - --license ${WORKSPACE}/${CODEBASE_DIR}"
+scancode -q --yaml - --license "${WORKSPACE}"/"${CODEBASE_DIR}"
+
+logInfoMessage "scancode -cl -q --license --json reports/${OUTPUT_ARG} ${WORKSPACE}/${CODEBASE_DIR}"
+scancode -cl -q --license --json reports/"${OUTPUT_ARG}" "${WORKSPACE}"/"${CODEBASE_DIR}"
 STATUS=$(echo $?)
 if [ -s "reports/${OUTPUT_ARG}" ]; then
    cat reports/"${OUTPUT_ARG}"
