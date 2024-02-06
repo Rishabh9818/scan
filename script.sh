@@ -14,8 +14,8 @@ STATUS=0
 logInfoMessage "Scanning the code available at ${WORKSPACE}/${CODEBASE_DIR} "
 sleep  "$SLEEP_DURATION"
 logInfoMessage "Executing command"
-logInfoMessage "scancode -q --yaml - --license ${WORKSPACE}/${CODEBASE_DIR}"
-scancode -q --yaml - --license "${WORKSPACE}"/"${CODEBASE_DIR}"
+logInfoMessage "scancode -q ${FORMAT_ARG} - --license ${WORKSPACE}/${CODEBASE_DIR}"
+scancode -q ${FORMAT_ARG} - --license "${WORKSPACE}"/"${CODEBASE_DIR}"
 
 logInfoMessage "scancode -cl -q --license --json reports/${OUTPUT_ARG} ${WORKSPACE}/${CODEBASE_DIR}"
 scancode -cl -q --license --json reports/"${OUTPUT_ARG}" "${WORKSPACE}"/"${CODEBASE_DIR}"
