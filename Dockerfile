@@ -25,4 +25,5 @@ RUN apt-get update \
  && pip install scancode-toolkit
 ENV ACTIVITY_SUB_TASK_CODE SCANCODE_EXECUTE
 ENV OUTPUT_ARG scancode.html
+ENV FORMAT_ARG yaml
 ENTRYPOINT ["./script.sh"]
