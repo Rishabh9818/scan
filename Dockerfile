@@ -1,12 +1,14 @@
-FROM python:3.8
-# Python settings: Force unbuffered stdout and stderr (i.e. they are flushed to terminal immediately)
-ENV PYTHONUNBUFFERED 1
-# Python settings: do not write pyc files
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV SLEEP_DURATION 5s
-COPY script.sh .
-COPY functions.sh .
-COPY log-functions.sh .
-RUN apt-get update \
+FROM aquasec/trivy:0.48.3
 
-ENTRYPOINT ["echo" , "hi"]
+RUN apk add --no-cache --upgrade bash && \
+    apk add jq
+
+WORKDIR /app
+
+COPY . .
+
+ENV SCAN_TYPE ""
+ENV SCAN_SEVERITY "HIGH,CRITICAL"
+ENV FORMAT_ARG "table"
+ENV OUTPUT_ARG "trivy-report.json"
+ENTRYPOINT [ "./build.sh" ]
